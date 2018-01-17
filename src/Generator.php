@@ -61,17 +61,20 @@ class Generator extends \yii\gii\Generator
     {
         return [
             'entity.php',
+            'entityId.php',
+            'entityIdType.php',
             'field.php',
             'dtoCreate.php',
             'dtoUpdateField.php',
             'createdEvent.php',
             'updatedEvent.php',
-            'mapping.yml',
+            'mapping.php',
             'repositoryInterface.php',
             'memoryRepository.php',
             'doctrineRepository.php',
             'service.php',
             'fieldType.php',
+            'serviceInterface.php',
         ];
     }
 
@@ -89,63 +92,80 @@ class Generator extends \yii\gii\Generator
             $this->getEntityFileName(),
             $this->render('entity.php', ['entityClass' => $this->entityClass, 'fields' => $fields])
         );
-/*
+
         $files[] = new CodeFile(
-            \Yii::getAlias('@' . $this->getDtoCreateFileName()),
-            $this->render('dtoCreate.php', ['entityClass' => $this->entityClass])
+            $this->getEntityIdFileName(),
+            $this->render('entityId.php', ['entityClass' => $this->entityClass])
         );
 
         $files[] = new CodeFile(
-            \Yii::getAlias('@' . $this->getDtoUpdateFieldFileName()),
-            $this->render('dtoUpdateField.php', ['entityClass' => $this->entityClass])
+            $this->getEntityIdTypeFileName(),
+            $this->render('entityIdType.php', ['entityClass' => $this->entityClass])
         );
 
         $files[] = new CodeFile(
-            \Yii::getAlias('@' . $this->getEventCreatedFileName()),
-            $this->render('eventCreated.php', ['entityClass' => $this->entityClass])
-        );
-
-        $files[] = new CodeFile(
-            \Yii::getAlias('@' . $this->getEventUpdatedFileName()),
-            $this->render('eventUpdated.php', ['entityClass' => $this->entityClass])
-        );
-        
-        $files[] = new CodeFile(
-            \Yii::getAlias('@' . $this->getMappingFileName()),
-            $this->render('mapping.php', ['entityClass' => $this->entityClass])
-        );
-
-        $files[] = new CodeFile(
-            \Yii::getAlias('@' . $this->getDoctrineRepositoryFileName()),
-            $this->render('doctrineRepository.php', ['entityClass' => $this->entityClass])
-        );
-
-        $files[] = new CodeFile(
-            \Yii::getAlias('@' . $this->getMemoryRepositoryFileName()),
-            $this->render('memoryRepository.php', ['entityClass' => $this->entityClass])
-        );
-
-        $files[] = new CodeFile(
-            \Yii::getAlias('@' . $this->getRepositoryInterfaceFileName()),
-            $this->render('repositoryInterface.php', ['entityClass' => $this->entityClass])
-        );
-
-        $files[] = new CodeFile(
-            \Yii::getAlias('@' . $this->getServiceFileName()),
-            $this->render('service.php', ['entityClass' => $this->entityClass])
+            $this->getDtoCreateFileName(),
+            $this->render('dtoCreate.php', ['entityClass' => $this->entityClass, 'fields' => $fields])
         );
 
         foreach ($fields as $field) {
             $files[] = new CodeFile(
-                \Yii::getAlias('@' . $this->getFieldTypeFileName($field)),
-                $this->render('fieldType.php', ['entityClass' => $this->entityClass, 'field' => $field])
+                $this->getDtoUpdateFieldFileName($field),
+                $this->render('dtoUpdateField.php', ['entityClass' => $this->entityClass, 'field' => $field])
+            );
+        }
+
+        $files[] = new CodeFile(
+            $this->getEventCreatedFileName(),
+            $this->render('eventCreated.php', ['entityClass' => $this->entityClass])
+        );
+
+        $files[] = new CodeFile(
+            $this->getEventUpdatedFileName(),
+            $this->render('eventUpdated.php', ['entityClass' => $this->entityClass])
+        );
+        
+        $files[] = new CodeFile(
+            $this->getMappingFileName(),
+            $this->render('mapping.php', ['entityClass' => $this->entityClass, 'fields' => $fields])
+        );
+
+        $files[] = new CodeFile(
+            $this->getDoctrineRepositoryFileName(),
+            $this->render('doctrineRepository.php', ['entityClass' => $this->entityClass, 'fields' => $fields])
+        );
+
+        $files[] = new CodeFile(
+            $this->getMemoryRepositoryFileName(),
+            $this->render('memoryRepository.php', ['entityClass' => $this->entityClass, 'fields' => $fields])
+        );
+
+        $files[] = new CodeFile(
+            $this->getRepositoryInterfaceFileName(),
+            $this->render('repositoryInterface.php', ['entityClass' => $this->entityClass, 'fields' => $fields])
+        );
+
+        $files[] = new CodeFile(
+            $this->getServiceFileName(),
+            $this->render('service.php', ['entityClass' => $this->entityClass, 'fields' => $fields])
+        );
+
+        foreach ($fields as $field) {
+            $files[] = new CodeFile(
+                $this->getFieldFileName($field),
+                $this->render('field.php', ['entityClass' => $this->entityClass, 'field' => $field])
             );
             $files[] = new CodeFile(
-                \Yii::getAlias('@' . $this->getFieldTypeFileName($field)),
+                $this->getFieldTypeFileName($field),
                 $this->render('fieldType.php', ['entityClass' => $this->entityClass, 'field' => $field])
             );
         }
-        */
+
+        $files[] = new CodeFile(
+            $this->getServiceInterfaceFileName(),
+            $this->render('serviceInterface.php', ['entityClass' => $this->entityClass])
+        );
+
         return $files;
     }
 
@@ -162,6 +182,38 @@ class Generator extends \yii\gii\Generator
     protected function getEntityPath()
     {
         return $this->getPathFromClass($this->getEntityClassName());
+    }
+
+
+    public function getEntityIdFileName()
+    {
+        return $this->getEntityIdPath() . '.php';
+    }
+
+    public function getEntityIdClassName()
+    {
+        return $this->ns . '\\' . $this->entityClass . 'Id';
+    }
+
+    protected function getEntityIdPath()
+    {
+        return $this->getPathFromClass($this->getEntityIdClassName());
+    }
+
+
+    public function getEntityIdTypeFileName()
+    {
+        return $this->getEntityIdTypePath() . '.php';
+    }
+
+    public function getEntityIdTypeClassName()
+    {
+        return $this->ns . '\\' . $this->typesPath . '\\' . $this->entityClass . 'IdType';
+    }
+
+    protected function getEntityIdTypePath()
+    {
+        return $this->getPathFromClass($this->getEntityIdTypeClassName());
     }
 
     
@@ -181,19 +233,19 @@ class Generator extends \yii\gii\Generator
     }
 
 
-    public function getDtoUpdateFieldFileName()
+    public function getDtoUpdateFieldFileName($field)
     {
-        return $this->getDtoUpdateFieldPath() . '.php';
+        return $this->getDtoUpdateFieldPath($field) . '.php';
     }
 
-    public function getDtoUpdateFieldClassName()
+    public function getDtoUpdateFieldClassName($field)
     {
-        return $this->getRelatedClass($this->dtoPath ,'UpdateFieldDto');
+        return $this->getRelatedClass($this->dtoPath ,'Update' . ucwords($field) . 'Dto');
     }
 
-    protected function getDtoUpdateFieldPath()
+    protected function getDtoUpdateFieldPath($field)
     {
-        return $this->getPathFromClass($this->getDtoUpdateFieldClassName());
+        return $this->getPathFromClass($this->getDtoUpdateFieldClassName($field));
     }
 
 
@@ -300,7 +352,7 @@ class Generator extends \yii\gii\Generator
 
     public function getServiceClassName()
     {
-        return $this->getRelatedClass($this->dtoPath ,'Service');
+        return $this->getRelatedClass($this->servicesPath ,'Service');
     }
 
     protected function getServicePath()
@@ -316,7 +368,7 @@ class Generator extends \yii\gii\Generator
 
     public function getFieldClassName($field)
     {
-        return $this->getRelatedClass($this->typesPath , $field);
+        return $this->ns . '\\' . ucfirst($field);
     }
 
     protected function getFieldPath($field)
@@ -332,14 +384,29 @@ class Generator extends \yii\gii\Generator
 
     public function getFieldTypeClassName($field)
     {
-        return $this->getRelatedClass($this->typesPath , $field . 'Type');
+        return $this->getRelatedClass($this->typesPath , $field . 'Type', false);
     }
 
     protected function getFieldTypePath($field)
     {
         return $this->getPathFromClass($this->getFieldTypeClassName($field));
     }
-    
+
+
+    public function getServiceInterfaceFileName()
+    {
+        return $this->getServiceInterfacePath() . '.php';
+    }
+
+    public function getServiceInterfaceClassName()
+    {
+        return dirname($this->ns) . '\\' . 'ServiceInterface';
+    }
+
+    protected function getServiceInterfacePath()
+    {
+        return $this->getPathFromClass($this->getServiceInterfaceClassName());
+    }
     
     protected function getPathFromClass($className)
     {
@@ -347,8 +414,8 @@ class Generator extends \yii\gii\Generator
         return \Yii::getAlias('@' . pathinfo($path, PATHINFO_DIRNAME)) . '/' . pathinfo($path, PATHINFO_BASENAME);
     }
 
-    protected function getRelatedClass($path, $className)
+    protected function getRelatedClass($path, $className, $useEntityClass = true)
     {
-        return $this->getEntityPath(). '\\' . $path . '\\' . $this->entityClass . $className;
+        return $this->ns. '\\' . $path . '\\' . ($useEntityClass? $this->entityClass:'') . ucfirst($className);
     }
 }
