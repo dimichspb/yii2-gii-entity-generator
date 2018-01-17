@@ -23,8 +23,8 @@
     },
     "autoload": {
         "psr-4": {
-            "elisdn\\gii\\fixture\\": "src/",
-            "elisdn\\gii\\fixture\\tests\\": "tests/"
+            "dimichspb\\gii\\entity\\": "src/",
+            "dimichspb\\gii\\entity\\tests\\": "tests/"
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace dimichspb\gii;
+namespace dimichspb\gii\entity;
 
 use yii\gii\CodeFile;
 

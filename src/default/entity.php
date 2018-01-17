@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $generator dimichspb\gii\Generator */
+/* @var $generator dimichspb\gii\entity\Generator */
 /* @var $entityClass string */
 /* @var $fields array */
 
