@@ -1,0 +1,30 @@
+{
+    "name": "dimichspb/yii2-gii-entity-generator",
+    "description": "Entity staff generator for Gii module of Yii2 Framework.",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "yii 2", "gii", "entity"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Dmitry Tarantin",
+            "email": "dimichspb@gmail.com",
+            "homepage": "https://github.com/dimichspb"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/dimichspb/yii2-gii-entity-generator/issues?state=open",
+        "source": "https://github.com/dimichspb/yii2-gii-entity-generator"
+    },
+    "require": {
+        "yiisoft/yii2-gii": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "elisdn\\gii\\fixture\\": "src/",
+            "elisdn\\gii\\fixture\\tests\\": "tests/"
+        }
+    },
+}
