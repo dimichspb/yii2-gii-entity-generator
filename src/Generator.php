@@ -19,12 +19,12 @@ class Generator extends \yii\gii\Generator
 
     public function getName()
     {
-        return 'Entity staff generator';
+        return 'Entity stuff generator';
     }
 
     public function getDescription()
     {
-        return 'This generator generates entity class with all necessary staff.';
+        return 'This generator generates entity class with all necessary stuff.';
     }
 
     public function rules()

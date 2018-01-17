@@ -18,7 +18,7 @@ use <?= $generator->ns ?>\<?= ucwords($field)?>;
 <?php endforeach; ?>
 use Ramsey\Uuid\Uuid;
 
-class Memory<?= $entityClass ?>Repository implements <?= $entityClass ?>RepositoryInterface
+class <?= $entityClass ?>MemoryRepository implements <?= $entityClass ?>RepositoryInterface
 {
     /**
      * @var <?= $entityClass ?>[]

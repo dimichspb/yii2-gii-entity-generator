@@ -20,7 +20,7 @@ use <?= $generator->ns ?>\<?= $generator->typesPath ?>\<?= ucwords($field)?>Type
 <?php endforeach; ?>
 use Ramsey\Uuid\Uuid;
 
-class Doctrine<?= $entityClass ?>Repository implements <?= $entityClass ?>RepositoryInterface
+class <?= $entityClass ?>DoctrineRepository implements <?= $entityClass ?>RepositoryInterface
 {
     private $em;
     private $entityRepository;

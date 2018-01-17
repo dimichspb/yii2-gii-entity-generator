@@ -9,6 +9,7 @@
 <?= $generator->getEntityClassName()?>:
   type: entity
   table: <?= $entityClass ?>
+
   id:
     <?= strtolower($entityClass)?>Id:
       id: true
