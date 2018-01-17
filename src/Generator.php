@@ -161,7 +161,7 @@ class Generator extends \yii\gii\Generator
 
     protected function getEntityPath()
     {
-        return \Yii::getAlias('@' . $this->getPathFromClass($this->getEntityClassName()));
+        return $this->getPathFromClass($this->getEntityClassName());
     }
 
     
@@ -343,7 +343,8 @@ class Generator extends \yii\gii\Generator
     
     protected function getPathFromClass($className)
     {
-        return str_replace('\\', DIRECTORY_SEPARATOR, $className);
+        $path = str_replace('\\', DIRECTORY_SEPARATOR, $className);
+        return \Yii::getAlias('@' . pathinfo($path, PATHINFO_DIRNAME)) . DIRECTORY_SEPARATOR . pathinfo($path, PATHINFO_BASENAME);
     }
 
     protected function getRelatedClass($path, $className)
