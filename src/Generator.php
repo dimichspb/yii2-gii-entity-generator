@@ -86,7 +86,7 @@ class Generator extends \yii\gii\Generator
 
         $files = [];
         $files[] = new CodeFile(
-            \Yii::getAlias('@' . $this->getEntityFileName()),
+            $this->getEntityFileName(),
             $this->render('entity.php', ['fields' => $fields])
         );
 /*
@@ -161,13 +161,13 @@ class Generator extends \yii\gii\Generator
 
     protected function getEntityPath()
     {
-        return $this->getPathFromClass($this->getEntityClassName());
+        return \Yii::getAlias('@' . $this->getPathFromClass($this->getEntityClassName()));
     }
 
     
     public function getDtoCreateFileName()
     {
-        return $this->getDtoCreateClassName() . '.php';    
+        return $this->getDtoCreatePath() . '.php';
     }
 
     public function getDtoCreateClassName()
@@ -183,7 +183,7 @@ class Generator extends \yii\gii\Generator
 
     public function getDtoUpdateFieldFileName()
     {
-        return $this->getDtoUpdateFieldClassName() . '.php';
+        return $this->getDtoUpdateFieldPath() . '.php';
     }
 
     public function getDtoUpdateFieldClassName()
@@ -199,7 +199,7 @@ class Generator extends \yii\gii\Generator
 
     public function getEventCreatedFileName()
     {
-        return $this->getEventCreatedClassName() . '.php';
+        return $this->getEventCreatedPath() . '.php';
     }
 
     public function getEventCreatedClassName()
@@ -215,7 +215,7 @@ class Generator extends \yii\gii\Generator
     
     public function getEventUpdatedFileName()
     {
-        return $this->getEventUpdatedClassName() . '.php';
+        return $this->getEventUpdatedPath() . '.php';
     }
 
     public function getEventUpdatedClassName()
@@ -223,7 +223,7 @@ class Generator extends \yii\gii\Generator
         return $this->getRelatedClass($this->eventsPath ,'UpdatedEvent');
     }
 
-    protected function getEventUpdatePath()
+    protected function getEventUpdatedPath()
     {
         return $this->getPathFromClass($this->getEventUpdatedClassName());
     }
@@ -231,7 +231,7 @@ class Generator extends \yii\gii\Generator
 
     public function getMappingFileName()
     {
-        return $this->getMappingClassName() . '.yml';
+        return $this->getMappingPath() . '.yml';
     }
 
     public function getMappingClassName()
@@ -247,7 +247,7 @@ class Generator extends \yii\gii\Generator
 
     public function getDoctrineRepositoryFileName()
     {
-        return $this->getDoctrineRepositoryClassName() . '.php';
+        return $this->getDoctrineRepositoryPath() . '.php';
     }
 
     public function getDoctrineRepositoryClassName()
@@ -263,7 +263,7 @@ class Generator extends \yii\gii\Generator
 
     public function getMemoryRepositoryFileName()
     {
-        return $this->getMemoryRepositoryClassName() . '.php';
+        return $this->getMemoryRepositoryPath() . '.php';
     }
 
     public function getMemoryRepositoryClassName()
@@ -279,7 +279,7 @@ class Generator extends \yii\gii\Generator
 
     public function getRepositoryInterfaceFileName()
     {
-        return $this->getRepositoryInterfaceClassName() . '.php';
+        return $this->getRepositoryInterfacePath() . '.php';
     }
 
     public function getRepositoryInterfaceClassName()
@@ -295,7 +295,7 @@ class Generator extends \yii\gii\Generator
 
     public function getServiceFileName()
     {
-        return $this->getServiceClassName() . '.php';
+        return $this->getServicePath() . '.php';
     }
 
     public function getServiceClassName()
@@ -311,7 +311,7 @@ class Generator extends \yii\gii\Generator
 
     public function getFieldFileName($field)
     {
-        return $this->getFieldClassName($field) . '.php';
+        return $this->getFieldPath($field) . '.php';
     }
 
     public function getFieldClassName($field)
@@ -327,7 +327,7 @@ class Generator extends \yii\gii\Generator
 
     public function getFieldTypeFileName($field)
     {
-        return $this->getFieldTypeClassName($field) . '.php';
+        return $this->getFieldTypePath($field) . '.php';
     }
 
     public function getFieldTypeClassName($field)
