@@ -26,5 +26,5 @@
             "elisdn\\gii\\fixture\\": "src/",
             "elisdn\\gii\\fixture\\tests\\": "tests/"
         }
-    },
+    }
 }
