@@ -14,8 +14,10 @@ use common\entities\events\EventTrait;
 use common\entities\traits\ValidationTrait;
 use common\entities\ValidableInterface;
 <?php foreach ($fields as $field): ?>
-use <?= $generator->ns ?>\<?= $generator->typesPath ?>\<?= ucwords($field) ?>
+use <?= $generator->ns ?>\<?= $generator->typesPath ?>\<?= ucwords($field) ?>;
 <?php endforeach; ?>
+use <?= $generator->getEventCreatedClassName() ?>;
+use <?= $generator->getEventUpdatedClassName() ?>;
 
 /**
 * @ORM\Entity
@@ -28,6 +30,7 @@ class <?= $generator->entityClass ?> extends Entity implements ValidableInterfac
 
 
     <?php foreach ($fields as $field): ?>
+
     /**
     * @var <?= ucwords($field) ?>
     */
@@ -36,6 +39,7 @@ class <?= $generator->entityClass ?> extends Entity implements ValidableInterfac
     <?php endforeach; ?>
 
     <?php foreach ($fields as $field): ?>
+
     /**
     * @return <?= ucwords($field) ?>
     */
@@ -55,6 +59,7 @@ class <?= $generator->entityClass ?> extends Entity implements ValidableInterfac
     <?php endforeach; ?>
 
     <?php foreach ($fields as $field): ?>
+
     public function update<?= ucwords($field) ?>($<?= $field ?>)
     {
         $this->set<?= ucwords($field) ?>(new <?= ucwords($field) ?>($<?= $field ?>));
@@ -66,16 +71,18 @@ class <?= $generator->entityClass ?> extends Entity implements ValidableInterfac
 
     /**
     * <?= ucwords($entityClass) ?> constructor.
-    <?php foreach ($fields as $field): ?>
+<?php foreach ($fields as $field): ?>
+
     * @param <?= ucwords($field) ?>|null $<?= $field ?>
-    <?php endforeach; ?>
+<?php endforeach; ?>
     */
 
     public function __construct(<?php foreach ($fields as $field): ?><?= ucwords($field) ?> $<?= $field ?> = null<?php endforeach;?>)
     {
-        <?php foreach ($fields as $field): ?>
-        $this-><?= $field ?> = $<?= $field ?>;
-        <?php endforeach; ?>
+<?php foreach ($fields as $field): ?>
+
+    $this-><?= $field ?> = $<?= $field ?>;
+<?php endforeach; ?>
 
         $this->recordEvent(new <?= ucwords($entityClass) ?>CreatedEvent($this));
     }

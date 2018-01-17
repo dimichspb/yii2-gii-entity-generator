@@ -87,7 +87,7 @@ class Generator extends \yii\gii\Generator
         $files = [];
         $files[] = new CodeFile(
             $this->getEntityFileName(),
-            $this->render('entity.php', ['fields' => $fields])
+            $this->render('entity.php', ['entityClass' => $this->entityClass, 'fields' => $fields])
         );
 /*
         $files[] = new CodeFile(
@@ -343,8 +343,8 @@ class Generator extends \yii\gii\Generator
     
     protected function getPathFromClass($className)
     {
-        $path = str_replace('\\', DIRECTORY_SEPARATOR, $className);
-        return \Yii::getAlias('@' . pathinfo($path, PATHINFO_DIRNAME)) . DIRECTORY_SEPARATOR . pathinfo($path, PATHINFO_BASENAME);
+        $path = str_replace('\\', '/', $className);
+        return \Yii::getAlias('@' . pathinfo($path, PATHINFO_DIRNAME)) . '/' . pathinfo($path, PATHINFO_BASENAME);
     }
 
     protected function getRelatedClass($path, $className)
